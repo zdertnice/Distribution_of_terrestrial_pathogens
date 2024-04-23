@@ -1,0 +1,25 @@
+library(ggplot2)
+library(maps)
+#library(rlang)
+point<-read.csv('bacteria_new.csv')
+mapworld<-borders("world",regions=".",
+                  colour ="gray50",fill="#FFF2CC", size=0.01)
+mp <- ggplot(data = point)+
+  mapworld  
+print(mp)
+mp2<- mp+
+  geom_point(aes(x=longitude,
+                 y=latitude,
+                 color=species,
+                 size=count),
+             alpha=0.9)+
+  scale_size("count",range=c(3,6))+
+  
+  theme(legend.background = element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        panel.background = element_rect(fill ='#7FCBF9'))+
+  
+  labs(x="Longitude",y="Latitude")
+mp2
+
